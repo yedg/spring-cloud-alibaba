@@ -8,13 +8,13 @@
     <parent>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-build</artifactId>
-        <version>2.2.1.RELEASE</version>
+        <version>2.2.2.RELEASE</version>
         <relativePath/>
     </parent>
 
     <groupId>com.alibaba.cloud</groupId>
     <artifactId>spring-cloud-alibaba</artifactId>
-    <version>2.2.0.BUILD-SNAPSHOT</version>
+    <version>2.2.1.BUILD-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Spring Cloud Alibaba</name>
     <description>Spring Cloud Alibaba</description>
@@ -73,23 +73,22 @@
 
     <properties>
         <!-- Dependency Versions -->
-        <spring-cloud-commons.version>2.2.1.RELEASE</spring-cloud-commons.version>
-        <spring-cloud-netflix.version>2.2.1.RELEASE</spring-cloud-netflix.version>
-        <spring-cloud-openfeign.version>2.2.1.RELEASE</spring-cloud-openfeign.version>
-        <spring-cloud-bus.version>2.2.0.RELEASE</spring-cloud-bus.version>
-        <spring-cloud-gateway.version>2.2.1.RELEASE</spring-cloud-gateway.version>
-        <spring-cloud-stream.version>Horsham.SR1</spring-cloud-stream.version>
-        <spring-cloud-consul.version>2.2.1.RELEASE</spring-cloud-consul.version>
-        <spring-cloud-config.version>2.2.1.RELEASE</spring-cloud-config.version>
-        <spring-cloud-zookeeper.version>2.2.0.RELEASE</spring-cloud-zookeeper.version>
+        <spring-cloud-commons.version>2.2.2.RELEASE</spring-cloud-commons.version>
+        <spring-cloud-netflix.version>2.2.2.RELEASE</spring-cloud-netflix.version>
+        <spring-cloud-openfeign.version>2.2.2.RELEASE</spring-cloud-openfeign.version>
+        <spring-cloud-bus.version>2.2.1.RELEASE</spring-cloud-bus.version>
+        <spring-cloud-gateway.version>2.2.2.RELEASE</spring-cloud-gateway.version>
+        <spring-cloud-stream.version>Horsham.SR3</spring-cloud-stream.version>
+        <spring-cloud-consul.version>2.2.2.RELEASE</spring-cloud-consul.version>
+        <spring-cloud-config.version>2.2.2.RELEASE</spring-cloud-config.version>
+        <spring-cloud-zookeeper.version>2.2.1.RELEASE</spring-cloud-zookeeper.version>
 
         <junit.version>4.12</junit.version>
         <javax-servlet-api>3.0</javax-servlet-api>
         <slf4j-api.version>1.7.25</slf4j-api.version>
 
         <!-- Apache Dubbo -->
-        <dubbo-spring-boot.version>2.7.3</dubbo-spring-boot.version>
-        <dubbo.version>2.7.3</dubbo.version>
+        <dubbo.version>2.7.4.1</dubbo.version>
         <curator.version>4.0.1</curator.version>
 
         <!-- Apache RocketMQ -->
@@ -105,34 +104,16 @@
 
     <modules>
         <module>spring-cloud-alibaba-dependencies</module>
-        <module>spring-cloud-alibaba-sentinel</module>
-        <module>spring-cloud-alibaba-sentinel-datasource</module>
-        <module>spring-cloud-alibaba-sentinel-gateway</module>
-        <module>spring-cloud-circuitbreaker-sentinel</module>
-        <module>spring-cloud-alibaba-nacos-config</module>
-        <module>spring-cloud-alibaba-nacos-discovery</module>
-        <module>spring-cloud-alibaba-seata</module>
-        <module>spring-cloud-stream-binder-rocketmq</module>
-        <module>spring-cloud-alibaba-nacos-config-server</module>
-        <module>spring-cloud-alibaba-dubbo</module>
-        <module>spring-cloud-alicloud-context</module>
         <module>spring-cloud-alibaba-examples</module>
         <module>spring-cloud-alibaba-docs</module>
-        <module>spring-cloud-starter-alibaba</module>
-        <module>spring-cloud-starter-alicloud</module>
-        <module>spring-cloud-alicloud-oss</module>
-        <module>spring-cloud-alicloud-acm</module>
-        <module>spring-cloud-alicloud-ans</module>
-        <module>spring-cloud-alicloud-schedulerx</module>
-        <module>spring-cloud-alicloud-sms</module>
+        <module>spring-cloud-alibaba-starters</module>
         <module>spring-cloud-alibaba-coverage</module>
-        <module>spring-cloud-alibaba-sidecar</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
 
-            <!-- Spring Boot -->
+            <!-- Spring Dependencies -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -228,10 +209,31 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- Dubbo Dependencies -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-dependencies-bom</artifactId>
+                <version>${dubbo.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-framework-bom</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-spring-boot-starter</artifactId>
-                <version>${dubbo-spring-boot.version}</version>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-actuator</artifactId>
+                <version>${dubbo.version}</version>
             </dependency>
 
             <dependency>
@@ -241,15 +243,7 @@
                 <exclusions>
                     <exclusion>
                         <groupId>org.springframework</groupId>
-                        <artifactId>spring</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>javax.servlet</groupId>
-                        <artifactId>servlet-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
+                        <artifactId>spring-context</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -418,7 +412,6 @@
         </profile>
 
     </profiles>
-
 
 
 </project>
