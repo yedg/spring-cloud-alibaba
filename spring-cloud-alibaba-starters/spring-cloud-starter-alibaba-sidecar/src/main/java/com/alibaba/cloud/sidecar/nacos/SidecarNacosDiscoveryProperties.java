@@ -20,14 +20,15 @@ import java.net.SocketException;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.sidecar.SidecarProperties;
-import org.apache.commons.lang3.StringUtils;
+
+import org.springframework.util.StringUtils;
 
 /**
- * @author itmuch.com
+ * @author yuhuangbin
  */
 public class SidecarNacosDiscoveryProperties extends NacosDiscoveryProperties {
 
-	private final SidecarProperties sidecarProperties;
+	SidecarProperties sidecarProperties;
 
 	public SidecarNacosDiscoveryProperties(SidecarProperties sidecarProperties) {
 		this.sidecarProperties = sidecarProperties;
@@ -38,7 +39,7 @@ public class SidecarNacosDiscoveryProperties extends NacosDiscoveryProperties {
 		super.init();
 
 		String ip = sidecarProperties.getIp();
-		if (StringUtils.isNotBlank(ip)) {
+		if (!StringUtils.isEmpty(ip)) {
 			this.setIp(ip);
 		}
 
